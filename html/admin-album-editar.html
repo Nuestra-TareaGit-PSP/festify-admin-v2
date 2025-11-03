@@ -1,0 +1,54 @@
+<!-- =============================================================
+FILE: admin-album-editar.html (Admin · Editar álbum)
+============================================================= -->
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin · Editar álbum</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-white text-neutral-900">
+<header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b">
+    <div class="max-w-7xl mx-auto h-16 px-4 flex items-center justify-between">
+        <a href="./index.html" class="font-semibold">Festify Dashboard</a>
+        <nav class="hidden md:flex items-center gap-4 text-sm">
+            <a class="underline" href="./admin-artistas.html">Artistas</a>
+            <a href="./list-albums.html">Albums</a>
+        </nav>
+    </div>
+</header>
+<main class="max-w-4xl mx-auto px-4 py-8">
+    <a href="./admin-albums.html" class="text-sm px-3 py-2 rounded-lg border">Volver</a>
+    <div class="max-w-5xl mx-auto h-16 px-4 flex items-center justify-center">
+        <h1 class="font-semibold">Editar álbum</h1>
+    </div>
+    <form class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+        <div class="sm:col-span-2">
+            <label class="block text-neutral-700 mb-1">Título</label>
+            <input type="text" value="Título del álbum" class="w-full px-3 py-2 rounded-lg border" placeholder="Título del álbum" />
+        </div>
+        <div>
+            <label class="block text-neutral-700 mb-1">Fecha de lanzamiento</label>
+            <input type="date" value="2024-03-22" class="w-full px-3 py-2 rounded-lg border" />
+        </div>
+        <div>
+            <label class="block text-neutral-700 mb-1">Número de canciones</label>
+            <input type="number" min="0" value="12" class="w-full px-3 py-2 rounded-lg border" placeholder="Ej: 12" />
+        </div>
+        <div>
+            <label class="block text-neutral-700 mb-1">Duración total (segundos)</label>
+            <input type="number" min="0" value="2520" class="w-full px-3 py-2 rounded-lg border" placeholder="Ej: 3600" />
+        </div>
+        <div class="sm:col-span-2 flex items-center gap-3 mt-2">
+            <button type="reset" class="px-4 py-2 rounded-lg border">Deshacer cambios</button>
+            <button class="px-4 py-2 rounded-lg bg-neutral-900 text-white">Guardar álbum</button>
+        </div>
+    </form>
+</main>
+<!-- Footer -->
+<footer class="border-t mt-auto">
+    <div class="max-w-4xl mx-auto px-4 py-8 text-sm text-neutral-600 text-center">&copy; 2025 FestivalHub</div>
+</footer>
+</body>
+</html>

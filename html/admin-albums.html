@@ -1,0 +1,74 @@
+<!-- =============================================================
+FILE: admin-albums.html (Admin · Listado y CRUD de álbumes)
+============================================================= -->
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin · Álbumes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-white text-neutral-900" >
+<header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b">
+    <div class="max-w-7xl mx-auto h-16 px-4 flex items-center justify-between">
+        <a href="./index.html" class="font-semibold">Festify Dashboard</a>
+        <nav class="hidden md:flex items-center gap-4 text-sm">
+            <a class="underline" href="./admin-artistas.html">Artistas</a>
+            <a href="./list-albums.html">Albums</a>
+        </nav>
+    </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-8">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+        <div>
+            <h1 class="text-2xl font-extrabold">Álbumes</h1>
+            <p class="text-sm text-neutral-600">Gestiona álbumes: crear, editar, eliminar.</p>
+        </div>
+        <div class="flex items-center gap-2">
+            <input placeholder="Buscar por título" class="px-3 py-2 rounded-lg border w-64"/>
+            <a href="./admin-album-nuevo.html" class="px-3 py-2 rounded-lg bg-neutral-900 text-white text-sm">Nuevo álbum</a>
+        </div>
+    </div>
+
+    <div class="mt-6 overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead>
+            <tr class="text-left border-b">
+                <th class="py-2">Álbum</th>
+                <th>Fecha</th>
+                <th>Canciones</th>
+                <th>Duración</th>
+                <th class="text-right">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="border-b hover:bg-neutral-50">
+                <td class="py-2">
+                    <div class="flex items-center gap-3">
+                        <!-- Portada del álbum (ejemplo estático) -->
+                        <img class="w-10 h-10 rounded-md object-cover" src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=120&auto=format&fit=crop" alt="Portada del álbum"/>
+                        <div>
+                            <p class="font-medium">Título del Álbum</p>
+                            <p class="text-xs text-neutral-500">ID: alb_001</p>
+                        </div>
+                    </div>
+                </td>
+                <td>2018-05-18</td>
+                <td>13</td>
+                <td>45:30</td>
+                <td class="text-right">
+                    <a href="./admin-album-editar.html" class="px-2 py-1 rounded border">Editar</a>
+                    <button class="px-2 py-1 rounded border text-red-700">Eliminar</button>
+                </td>
+            </tr>
+            <!-- Más filas ... -->
+            </tbody>
+        </table>
+    </div>
+</main>
+<!-- Footer -->
+<footer class="border-t mt-auto">
+    <div class="max-w-4xl mx-auto px-4 py-8 text-sm text-neutral-600 text-center">&copy; 2025 FestivalHub</div>
+</footer>
+</body>
+</html>
