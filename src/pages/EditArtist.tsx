@@ -173,7 +173,7 @@ export default function EditArtist(){
             <Link to="/artists" className="text-sm px-3 py-2 rounded-lg border">Volver</Link>
             <div className="max-w-5xl mx-auto h-16 px-4 flex items-center justify-center"><h1
                 className="font-semibold">Editar artista</h1></div>
-            <form className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+            <form className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm" onSubmit={handleSubmitForm}>
                 <div className="sm:col-span-2">
                     <label className="block text-neutral-700 mb-1">Nombre</label>
                     <input type="text" value={form.name}  onChange={handleNameOnChange} className="w-full px-3 py-2 rounded-lg border" placeholder="Nombre del artista"/>
@@ -211,7 +211,7 @@ export default function EditArtist(){
                 <div className="sm:col-span-2 flex items-center gap-3 mt-2">
 
                     <button type="reset" onClick={handleReset} className="px-4 py-2 rounded-lg border">Deshacer cambios</button>
-                    <button disabled={!isValid}  className={btnSaveClassnames} onClick={handleSubmitForm}>Guardar artista</button>
+                    <button type="submit" disabled={!isValid}  className={btnSaveClassnames}>Guardar artista</button>
                 </div>
             </form>
         </main>
