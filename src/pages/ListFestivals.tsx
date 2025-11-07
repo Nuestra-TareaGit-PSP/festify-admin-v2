@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { listFestivals } from "@/services/festivals";
+import {deleteFestivals, listFestivals} from "@/services/festivals.ts";
 import {useEffect, useState, ChangeEvent} from "react";
 import { Link } from "react-router-dom";
 
@@ -10,13 +10,12 @@ export default function ListFestivals() {
 type FestivalTableItem = {
     id: string;
     name: string;
-    genres?: string;
-    listeners: "N/A" | number;
-    country: string;
-    status: "Activo" | "Borrador";
+    description: string;
+    price: number;
+    date: string;
 }
 
-const [festivals, setFestivals] = useState<FestivalTableItem[]>();
+    const [festivals, setFestivals] = useState<FestivalTableItem[]>();
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>();
     const [searchText, setSearchText] = useState<string>("");
@@ -28,11 +27,11 @@ const [festivals, setFestivals] = useState<FestivalTableItem[]>();
         const loadFestivals = async () => {
             //await new Promise(r => setTimeout(r, 2000));
             try {
-                const festivalsResponse = await ListFestivals();
+                const festivalsResponse = await listFestivals();
                 const result: FestivalTableItem[] = festivalsResponse.map(a => {
                     return {
                         ...a,
-                        genres: a.genres.join(" | ")
+                        date: new Date(a.date)
                     }
                 })
                 setFestivals(result);
@@ -56,7 +55,7 @@ const [festivals, setFestivals] = useState<FestivalTableItem[]>();
         festivals?.filter((festival) =>
             festival.name.toLowerCase().includes(searchText.toLowerCase())
         ) ?? [];
-
+    
 
     const handleDeleteFestival = (festivalId: string) => {
 
@@ -108,7 +107,7 @@ const [festivals, setFestivals] = useState<FestivalTableItem[]>();
 
 
 return <>
-        <Header/>
+<Header/>
 <main className="max-w-7xl mx-auto px-4 py-8">
   <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
     <div>
@@ -116,12 +115,81 @@ return <>
       <p className="text-sm text-neutral-600">Crea y gestiona eventos.</p>
     </div>
     <div className="flex items-center gap-2">
-      <input id="search" placeholder="Buscar por nombre/ciudad" className="px-3 py-2 rounded-lg border w-64"/>
-      <a href="./admin-festival-nuevo.html" className="px-3 py-2 rounded-lg bg-neutral-900 text-white text-sm">Nuevo festival</a>
+                    <input placeholder="Buscar por nombre/ciudad" value={searchText}
+                           onChange={handleOnSearchTextChange} className="px-3 py-2 rounded-lg border w-64"/>
+                    <Link to="/new-festival"
+                          className="px-3 py-2 rounded-lg bg-neutral-900 text-white text-sm">Nuevo Festival</Link>
+                </div>
     </div>
-  </div>
 
-  <div className="mt-4 flex items-center justify-between text-sm">
+    
+    
+    <div className="mt-6 overflow-x-auto">
+                <table className="w-full text-sm">
+                    <thead>
+                    <tr className="text-left border-b">
+                        <th className="py-2">Festival</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Fecha</th>
+                        <th className="text-right">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {filteredFestivals?.map(festival =>
+                        <tr key={festival.id} className="border-b hover:bg-neutral-50">
+                            <td className="py-2">
+                                <div className="flex items-center gap-3">
+                                    <img className="w-10 h-10 rounded-md object-cover"
+                                         src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=120&auto=format&fit=crop"/>
+                                    <div>
+                                        <p className="font-medium">{festival.name}</p>
+                                        <p className="text-xs text-neutral-500">ID: {festival.id}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{festival.description || "Sin asignar"}</td>
+                            <td>{festival.price}</td>
+                            <td>{festival.date}</td>
+                            <td><span className="px-2 py-1 rounded bg-green-100 text-green-800 text-xs">Activo</span>
+                            </td>
+                            <td className="text-right">
+
+                                <Link to={"/edit-festival/" + festival.id}
+                                      className="px-2 py-1 rounded border">Editar</Link>
+                                <button className="px-2 py-1 rounded border text-red-700" onClick={(evt) => {
+                                    evt.preventDefault();
+                                    handleDeleteFestival(festival.id)
+                                }}>Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                    )}
+
+                    </tbody>
+                </table>
+            </div>
+
+    <div className="mt-4 flex items-center justify-end gap-2">
+
+        <div className="mt-4 flex items-center justify-end gap-2">
+        <Link to={"/edit-festival/" + festival.id}
+        className="px-2 py-1 rounded border">Editar</Link>
+        <button className="px-2 py-1 rounded border text-red-700" onClick={(evt) => {
+                evt.preventDefault();
+                handleDeleteFestival(festival.id)}}>Eliminar
+        </button>
+        </div>
+    </div>
+</main>
+<Footer/>
+ 
+</>
+
+}
+
+/*
+<div className="mt-4 flex items-center justify-between text-sm">
     <div className="flex items-center gap-2">
       <span className="text-neutral-600">Resultados:</span>
       <span id="result-count" className="font-medium" aria-live="polite">4</span>
@@ -283,19 +351,4 @@ return <>
           <dd>85€ - 120€</dd>
         </div>
       </dl>
-
-      <div className="mt-4 flex items-center justify-end gap-2">
-        <Link to={"/edit-festival/" + festival.id}
-        className="px-2 py-1 rounded border">Editar</Link>
-        <button className="px-2 py-1 rounded border text-red-700" onClick={(evt) => {
-                evt.preventDefault();
-                handleDeleteFestival(festival.id)}}>Eliminar
-        </button>
-      </div>
-    </article>
-  </section>
-</main>
-<Footer/>
- 
-</>
-}
+*/
