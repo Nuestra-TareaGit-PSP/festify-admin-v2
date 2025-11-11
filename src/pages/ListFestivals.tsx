@@ -8,11 +8,14 @@ export default function ListFestivals() {
 
 
 type FestivalTableItem = {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    date: string;
+  id: string,
+  title: string,
+  about: string,
+  city: string,
+  from: string,
+  to: string,
+  price_from: number,
+  price_to: number
 }
 
     const [festivals, setFestivals] = useState<FestivalTableItem[]>();
@@ -31,7 +34,6 @@ type FestivalTableItem = {
                 const result: FestivalTableItem[] = festivalsResponse.map(a => {
                     return {
                         ...a,
-                        date: new Date(a.date)
                     }
                 })
                 setFestivals(result);
@@ -52,8 +54,8 @@ type FestivalTableItem = {
     }
 
     const filteredFestivals =
-        festivals?.filter((festival) =>
-            festival.name.toLowerCase().includes(searchText.toLowerCase())
+        festivals?.filter((festival) => 
+            festival.title.toLowerCase().includes(searchText.toLowerCase())
         ) ?? [];
     
 
@@ -73,7 +75,6 @@ type FestivalTableItem = {
         })
 
     }
-
 
     if (loading) {
         return <>
@@ -105,7 +106,6 @@ type FestivalTableItem = {
     }
 
 
-
 return <>
 <Header/>
 <main className="max-w-7xl mx-auto px-4 py-8">
@@ -123,15 +123,16 @@ return <>
     </div>
 
     
-    
     <div className="mt-6 overflow-x-auto">
                 <table className="w-full text-sm">
                     <thead>
                     <tr className="text-left border-b">
                         <th className="py-2">Festival</th>
                         <th>Descripción</th>
-                        <th>Precio</th>
-                        <th>Fecha</th>
+                        <th>Precio mínimo</th>
+                        <th>Precio máximo</th>
+                        <th>Fecha inicial</th>
+                        <th>Fecha final</th>
                         <th className="text-right">Acciones</th>
                     </tr>
                     </thead>
@@ -143,14 +144,16 @@ return <>
                                     <img className="w-10 h-10 rounded-md object-cover"
                                          src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=120&auto=format&fit=crop"/>
                                     <div>
-                                        <p className="font-medium">{festival.name}</p>
+                                        <p className="font-medium">{festival.title}</p>
                                         <p className="text-xs text-neutral-500">ID: {festival.id}</p>
                                     </div>
                                 </div>
                             </td>
-                            <td>{festival.description || "Sin asignar"}</td>
-                            <td>{festival.price}</td>
-                            <td>{festival.date}</td>
+                            <td>{festival.about || "Sin asignar"}</td>
+                            <td>{festival.price_from}</td>
+                            <td>{festival.price_to}</td>
+                            <td>{festival.from}</td>
+                            <td>{festival.to}</td>
                             <td><span className="px-2 py-1 rounded bg-green-100 text-green-800 text-xs">Activo</span>
                             </td>
                             <td className="text-right">
@@ -170,23 +173,22 @@ return <>
                 </table>
             </div>
 
-    <div className="mt-4 flex items-center justify-end gap-2">
-
-        <div className="mt-4 flex items-center justify-end gap-2">
-        <Link to={"/edit-festival/" + festival.id}
-        className="px-2 py-1 rounded border">Editar</Link>
-        <button className="px-2 py-1 rounded border text-red-700" onClick={(evt) => {
-                evt.preventDefault();
-                handleDeleteFestival(festival.id)}}>Eliminar
-        </button>
-        </div>
-    </div>
 </main>
 <Footer/>
  
 </>
 
 }
+
+/*
+id: string,
+  title: string,
+  about: string,
+  city: string,
+  from: string,
+  to: string,
+  price_from: number,
+  price_to: number*/
 
 /*
 <div className="mt-4 flex items-center justify-between text-sm">
