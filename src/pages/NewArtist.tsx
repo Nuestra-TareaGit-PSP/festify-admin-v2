@@ -121,8 +121,8 @@ export default function NewArtist(){
 
         <main className="max-w-4xl mx-auto px-4 py-8">
             <Link to="/artists" className="text-sm px-3 py-2 rounded-lg border">Volver</Link>
-            <div className="max-w-5xl mx-auto h-16 px-4 flex items-center justify-center"><h1
-                className="font-semibold">Nuevo artista</h1></div>
+            <div className="max-w-5xl mx-auto h-16 px-4 flex items-center justify-center">
+                <h1 className="font-semibold">Nuevo artista</h1></div>
             <form className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm" onSubmit={handleSubmitForm}>
 
                 <div className="sm:col-span-2">
